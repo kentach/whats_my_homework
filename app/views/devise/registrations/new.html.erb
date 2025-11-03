@@ -1,0 +1,47 @@
+<%= render "devise/shared/error_messages", resource: @user %>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4">新規登録</h2>
+
+    <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <!-- 生徒ID -->
+      <div class="mb-3">
+        <%= f.label :student_id, "生徒ID（6桁）", class: "form-label" %>
+        <%= f.text_field :student_id, autofocus: true, autocomplete: "student_id", class: "form-control" %>
+      </div>
+
+      <!-- 氏名 -->
+      <div class="mb-3">
+        <%= f.label :name, "氏名", class: "form-label" %>
+        <%= f.text_field :name, autocomplete: "name", class: "form-control" %>
+      </div>
+
+      <!-- パスワード -->
+      <div class="mb-3">
+        <%= f.label :password, "パスワード", class: "form-label" %>
+        <% if @minimum_password_length %>
+          <small class="text-muted">(<%= @minimum_password_length %>文字以上)</small>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <!-- パスワード確認 -->
+      <div class="mb-3">
+        <%= f.label :password_confirmation, "パスワード（確認）", class: "form-label" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <!-- グラデーションボタン -->
+      <div class="d-grid">
+        <%= f.submit "新規登録はこちらへ", class: "btn text-white fw-semibold gradient-btn py-2" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
