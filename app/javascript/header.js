@@ -1,28 +1,20 @@
 document.addEventListener("turbo:load", () => {
-  const navbar = document.getElementById("navbarNav");
+  const nav = document.getElementById("navbarNav");
   const toggler = document.querySelector(".navbar-toggler");
 
-  if (!navbar || !toggler) return;
+  if (!nav || !toggler) return;
 
-  const collapse = new Collapse(navbar, { toggle: false });
-
-  // トグルボタンで開閉
-  toggler.addEventListener("click", () => {
-    const isShown = navbar.classList.contains("show");
-    if (isShown) {
-      collapse.hide();
-    } else {
-      collapse.show();
-    }
+  // マウスが外れたら閉じる
+  nav.addEventListener("mouseleave", () => {
+    const bsCollapse = bootstrap.Collapse.getInstance(nav);
+    if (bsCollapse) bsCollapse.hide();
   });
 
-  // メニューからマウスが離れたら閉じる
-  navbar.addEventListener("mouseleave", () => {
-    collapse.hide();
-  });
-
-  // リンククリック時にも閉じる（スマホ用）
-  navbar.querySelectorAll("a.nav-link").forEach(link => {
-    link.addEventListener("click", () => collapse.hide());
+  // メニューリンククリックで閉じる
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const bsCollapse = bootstrap.Collapse.getInstance(nav);
+      if (bsCollapse) bsCollapse.hide();
+    });
   });
 });
